@@ -1,0 +1,55 @@
+{
+  "urdf": "openarm_v1.urdf",
+  "base_link": "openarm_body_link0",
+  "prompt_text": "dat_vat",
+  "camera_geometry_mode": "approximate_static",
+  "assumed_focal_px": 640.0,
+  "frame_stride": 5,
+  "jpeg_quality": 90,
+  "arms": [
+    {
+      "ee_link": "openarm_left_hand_tcp",
+      "joint_map": {
+        "left_j1": "openarm_left_joint1",
+        "left_j2": "openarm_left_joint2",
+        "left_j3": "openarm_left_joint3",
+        "left_j4": "openarm_left_joint4",
+        "left_j5": "openarm_left_joint5",
+        "left_j6": "openarm_left_joint6",
+        "left_j7": "openarm_left_joint7"
+      },
+      "gripper_raw_name": "left_gripper",
+      "gripper_closed_m": 0.0,
+      "gripper_open_m": 0.044
+    },
+    {
+      "ee_link": "openarm_right_hand_tcp",
+      "joint_map": {
+        "right_j1": "openarm_right_joint1",
+        "right_j2": "openarm_right_joint2",
+        "right_j3": "openarm_right_joint3",
+        "right_j4": "openarm_right_joint4",
+        "right_j5": "openarm_right_joint5",
+        "right_j6": "openarm_right_joint6",
+        "right_j7": "openarm_right_joint7"
+      },
+      "gripper_raw_name": "right_gripper",
+      "gripper_closed_m": 0.0,
+      "gripper_open_m": 0.044
+    }
+  ],
+  "cameras": {
+    "chest": {
+      "K": null,
+      "D": [],
+      "base_T_camera": null,
+      "raw_color_order": "rgb"
+    },
+    "front": {
+      "K": null,
+      "D": [],
+      "base_T_camera": null,
+      "raw_color_order": "rgb"
+    }
+  }
+}

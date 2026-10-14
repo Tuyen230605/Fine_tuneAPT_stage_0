@@ -1,0 +1,32 @@
+# Core deep-learning stack
+torch>=2.6
+torchvision
+einops
+diffusers>=0.27
+transformers>=4.45      # Qwen3-VL
+peft>=0.10              # LoRA adapters for the VLM
+xformers==0.0.29.post3  # for pytorch 2.6.0 (optional)
+deepspeed>=0.14         # only required when using --backend deepspeed
+timm
+
+# CLI / config
+tyro
+argparse-dataclass
+
+# Math / geometry
+pypose
+numpy
+matplotlib
+
+# Vision / data
+h5py
+opencv-python
+torchcodec             # video decoding (loaded lazily by data_utils.vid_dec)
+
+# Logging
+tensorboard
+
+# Remote inference (apt/infer/remote_service.py + shm_transport)
+Pyro4
+psutil
+pyyaml

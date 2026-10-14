@@ -1,0 +1,36 @@
+# Per-host dataset path table.
+#
+# This is the version-controlled default. For paths that should NOT be
+# committed (personal scratch directories, per-machine overrides), copy
+# this file to ``data_loc.local.yaml`` (gitignored) or point the env var
+# ``APT_DATA_LOC`` at a custom YAML.
+#
+# Each top-level ``hosts`` key is matched against this machine's IPv4
+# addresses (exact match, then prefix). Use ``APT_DATA_LOC_HOST=<ip>`` to
+# override IP detection in CI / docker.
+#
+# Glob patterns (``**/*.h5``) are forwarded directly to ``glob.glob`` with
+# ``recursive=True``; non-glob entries are treated as directory roots.
+
+hosts:
+  "172.16.5.34":
+    # LIBERO suites
+    LiberoSpatial: YOUR_DIRECTORY/libero_datasets/libero_spatial_no_noops/**/*.h5
+    LiberoObject:  YOUR_DIRECTORY/libero_datasets/libero_object_no_noops/**/*.h5
+    LiberoGoal:    YOUR_DIRECTORY/libero_datasets/libero_goal_no_noops/**/*.h5
+    Libero10:      YOUR_DIRECTORY/libero_datasets/libero_10_no_noops/**/*.h5
+
+    # Large-scale robot trajectory datasets
+    Droid:              YOUR_DIRECTORY/droid_1.0.1_h5_jpeg
+    AgibotWorldAlpha:   YOUR_DIRECTORY/AgiBotWorld-Alpha-compressed-jpeg
+    InternM1Franka:     YOUR_DIRECTORY//InternData-M1-Franka-converted
+    InternA1Franka:     YOUR_DIRECTORY/InternData-A1_h5
+    InternA1Lift2:      YOUR_DIRECTORY/InternData-A1_h5
+    InternA1Genie1:     YOUR_DIRECTORY/InternData-A1_h5
+    InternA1SplitAloha: YOUR_DIRECTORY/InternData-A1_h5
+
+    # Task-specific
+    PickPlaceCan:          YOUR_DIRECTORY/v0617lang/pick-place-can/*.h5
+    AlohaPickPlace:        YOUR_DIRECTORY/aloha/pick_place_1031/*.h5
+    AlohaPickPlaceClutter: YOUR_DIRECTORY/aloha/pick_place_clutter_1111/*.h5
+    AlohaTableStorage:     YOUR_DIRECTORY/aloha/table_storage_0905/*.h5

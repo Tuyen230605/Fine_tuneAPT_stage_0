@@ -1,0 +1,114 @@
+# PickPlace evaluation config — seen object (so) setting.
+#
+# Schema:
+#   pickable_objs        list of class names from pp_env.objs to sample 4-object combinations from
+#   non_target_objs      lowercased object names that may appear but must not be the pick target
+#   conflicts            mutually exclusive class pairs; combinations containing both are dropped
+#   prompts              language alternatives per class, one is sampled per episode
+#   placeable            list of target-container specs added each episode
+#                          name                     scene name (also USD prim name)
+#                          language                 word that fills the "{place}" slot in the prompt
+#                          usd                      USD asset path (relative to repo root)
+#                          scale                    XYZ scale applied at spawn
+#                          extra_rotation_x_deg     extra rotation about X after the random Z-yaw
+#                                                   (used to flip the bowl upright)
+#   scene.place_radius   min-separation radius (m) for placeable-object 2D sampling
+#   episodes.total       number of 4-object combinations to iterate
+#   episodes.exclude     combination indices to skip (e.g. ones with unrecoverable initial poses)
+#   policy_set_config    optional argument passed to policy.set_config() after policy.reset()
+#   support_env_randomization  when true, accept the --random_* / --novel_* / --plate / --bg / --env flags
+#   novel_bg_episodes    only used by uo's --novel_bg branch (uoue split); see uo.yaml
+
+pickable_objs:
+  - Can7up01
+  - CanCoke01
+  - CanPepsi02
+  - CanPepsi01
+  - Banana
+  - PowerDrill
+  - WoodenBlock
+  - Clamp
+  - BlueBlock
+  - GreenBlock
+  - RedBlock
+  - YellowBlock
+  - Apple
+  - Pear
+  - Orange
+  - WhiteCup
+  - ToyAirplane
+  - ToothPaste
+  - Zebra
+  - Rhinocero
+  - YellowDrink
+  - DarlieBox
+  - Soap
+  - Toy01
+  - Toy02
+
+non_target_objs: [banana, powerdrill, clamp, darliebox, toyairplane]
+
+conflicts:
+  Can7up01:    [GreenBlock]
+  CanCoke01:   [RedBlock]
+  CanPepsi01:  [BlueBlock]
+  WoodenBlock: [BlueBlock, GreenBlock, RedBlock, YellowBlock]
+  BlueBlock:   [WoodenBlock, CanPepsi01]
+  GreenBlock:  [WoodenBlock, Can7up01]
+  RedBlock:    [WoodenBlock, CanCoke01, Apple]
+  YellowBlock: [WoodenBlock]
+  Apple:       [RedBlock]
+  WhiteCup:    [Toy01, Toy02]
+  ToothPaste:  [DarlieBox]
+  DarlieBox:   [ToothPaste]
+  Toy01:       [Toy02]
+  Toy02:       [Toy01]
+
+prompts:
+  Can7up01:    ["green can", "green bottle", "green soda"]
+  CanCoke01:   ["red can", "red bottle", "red soda", "red Coca Cola"]
+  CanPepsi01:  ["blue can", "blue bottle", "blue soda", "blue Pepsi"]
+  CanPepsi02:  ["black can", "black bottle", "black soda", "black Pepsi"]
+  Banana:      ["banana", "yellow banana"]
+  PowerDrill:  ["power drill", "electric drill"]
+  WoodenBlock: ["rectangular block", "wooden block"]
+  Clamp:       ["clamp", "large clamp"]
+  BlueBlock:   ["blue block", "blue cube"]
+  GreenBlock:  ["green block", "green cube"]
+  RedBlock:    ["red block", "red cube"]
+  YellowBlock: ["yellow block", "yellow cube"]
+  Apple:       ["apple", "red apple"]
+  Pear:        ["pear", "green pear"]
+  Orange:      ["orange"]
+  WhiteCup:    ["white cup"]
+  ToyAirplane: ["toy airplane"]
+  ToothPaste:  ["toothpaste"]
+  Zebra:       ["zebra", "zebra animal"]
+  Rhinocero:   ["rhinocero", "rhinocero animal"]
+  YellowDrink: ["yellow drink", "yellow bottle"]
+  DarlieBox:   ["darlie box"]
+  Soap:        ["soap"]
+  Toy01:       ["toy"]
+  Toy02:       ["toy"]
+
+placeable:
+  - name: target_plate
+    language: plate
+    usd: assets/mesh/wooden_plate/model.usd
+    scale: [2, 2, 2]
+    extra_rotation_x_deg: 0
+  - name: target_bowl
+    language: bowl
+    usd: assets/mesh/Axis_Aligned/024_bowl.usd
+    scale: [1, 1, 1]
+    extra_rotation_x_deg: -90
+
+scene:
+  place_radius: 0.15
+
+episodes:
+  total: 63
+  exclude: [8, 10, 14, 24, 26, 28, 34, 43, 46, 51, 54, 56, 57]
+
+policy_set_config: PickPlaceCan
+support_env_randomization: false
